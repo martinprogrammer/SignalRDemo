@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <script src="Scripts/jquery-1.10.2.js"></script>
+    <script src="Scripts/jquery.signalR-2.1.2.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            var connection = $.hubConnection();
+            var hub = connection.createHubProxy('helloHub');
+            hub.on('hello', function (greeting) {
+                $('#messageBox').html(greeting + "&nbsp;");
+            });
+            connection.start().done(function () {
+                hub.invoke('sayHello');
+            });
+        });
+    </script>
+
+    <div id="messageBox"></div>
+
+</body>
+</html>
